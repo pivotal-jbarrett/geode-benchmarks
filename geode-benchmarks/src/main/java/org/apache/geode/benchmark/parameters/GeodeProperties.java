@@ -50,7 +50,7 @@ public class GeodeProperties {
     properties.setProperty(ConfigurationProperties.ENABLE_TIME_STATISTICS, "true");
     properties.setProperty(ConfigurationProperties.LOG_LEVEL, "config");
     properties.setProperty(ConfigurationProperties.STATISTIC_SAMPLING_ENABLED, "true");
-    properties.setProperty(ConfigurationProperties.SOCKET_BUFFER_SIZE, "40000000");
+    properties.setProperty(ConfigurationProperties.SOCKET_BUFFER_SIZE, "4000000");
     return properties;
 
   }
