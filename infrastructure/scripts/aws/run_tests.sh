@@ -19,7 +19,6 @@
 DATE=$(date '+%m-%d-%Y-%H-%M-%S')
 
 TAG=${1}
-BRANCH=${2:-develop}
 BENCHMARK_BRANCH=${3:-develop}
 OUTPUT=${4:-output-${DATE}-${TAG}}
 PREFIX="geode-performance-${TAG}"
@@ -35,12 +34,9 @@ echo "HOSTS=${HOSTS}"
 
 ssh ${SSH_OPTIONS} geode@$FIRST_INSTANCE "\
   rm -rf geode-benchmarks geode && \
-  git clone https://github.com/apache/geode geode && \
-  (pushd geode; git checkout ${BRANCH}) && \
-  (pushd geode; ./gradlew pTML -PversionNumber=${DATE} -PreleaseType="-BENCHMARKBUILD") && \
   git clone https://github.com/apache/geode-benchmarks --branch ${BENCHMARK_BRANCH} && \
   cd geode-benchmarks && \
-  ./gradlew -PgeodeVersion=${DATE}-BENCHMARKBUILD benchmark -Phosts=${HOSTS}"
+  ./gradlew -PgeodeVersion=1.8.0 benchmark -Phosts=${HOSTS} --tests ReplicatedPutBenchmark"
 
 
 mkdir -p ${OUTPUT}
