@@ -31,6 +31,7 @@ public class GeodeBenchmark {
     TestConfig testConfig = new TestConfig();
     testConfig.warmupSeconds(WARM_UP_TIME);
     testConfig.durationSeconds(BENCHMARK_DURATION);
+    testConfig.threads(4);
     return testConfig;
   }
 

@@ -53,7 +53,6 @@ public class PartitionedPutBenchmark implements PerformanceTest {
   public TestConfig configure() {
     TestConfig config = GeodeBenchmark.createConfig();
     ClientServerTopology.configure(config);
-    config.threads(4);
     config.before(new CreatePartitionedRegion(), SERVER);
     config.before(new CreateClientProxyRegion(), CLIENT);
     config.before(new PrePopulateRegion(keyRange), SERVER);
