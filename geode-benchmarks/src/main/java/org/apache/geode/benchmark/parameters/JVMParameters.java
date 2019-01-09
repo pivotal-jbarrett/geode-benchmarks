@@ -43,7 +43,9 @@ public class JVMParameters {
       "-Xms8g",
       "-XX:+PrintTenuringDistribution",
       "-XX:SurvivorRatio=3",
-      "-XX:TargetSurvivorRatio=80"
+      "-XX:TargetSurvivorRatio=80",
+      "-XX:NewSize=4g",
+      "-XX:MaxNewSize=4g"
   };
 
 }
