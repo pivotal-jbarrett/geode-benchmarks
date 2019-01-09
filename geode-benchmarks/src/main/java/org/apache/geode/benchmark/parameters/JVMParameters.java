@@ -40,7 +40,10 @@ public class JVMParameters {
       "-Dgemfire.OSProcess.ENABLE_OUTPUT_REDIRECTION=true",
       "-Dgemfire.launcher.registerSignalHandlers=true",
       "-Xmx8g",
-      "-Xms8g"
+      "-Xms8g",
+      "-XX:+PrintTenuringDistribution",
+      "-XX:SurvivorRatio=3",
+      "-XX:TargetSurvivorRatio=80"
   };
 
 }
