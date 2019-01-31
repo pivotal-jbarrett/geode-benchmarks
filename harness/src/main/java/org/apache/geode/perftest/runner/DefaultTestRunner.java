@@ -67,11 +67,12 @@ public class DefaultTestRunner implements TestRunner {
       throw new IllegalStateException(
           "Benchmark output directory already exists: " + benchmarkOutput.getPath());
     }
+    benchmarkOutput.mkdirs();
 
     String metadata = System.getProperty("TEST_METADATA");
     if(!(metadata == null) && !metadata.isEmpty()) {
       File metadataOutput = new File(outputDir, "metadata.json");
-//      metadataOutput.mkdir();
+      metadataOutput.mkdirs();
       metadataOutput.createNewFile();
       PrintWriter metadataWriter = new PrintWriter(metadataOutput);
 
