@@ -72,7 +72,7 @@ public class DefaultTestRunner implements TestRunner {
     String metadata = System.getProperty("TEST_METADATA");
     if(!(metadata == null) && !metadata.isEmpty()) {
       File metadataOutput = new File(outputDir, "metadata.json");
-      metadataOutput.mkdirs();
+//      metadataOutput.mkdirs();
       metadataOutput.createNewFile();
       PrintWriter metadataWriter = new PrintWriter(metadataOutput);
 
