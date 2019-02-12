@@ -25,7 +25,7 @@ public class GeodeBenchmark {
   /**
    * Total duration for which the benchmark will run on the default runner
    */
-  public static final int BENCHMARK_DURATION = 480;
+  public static final int BENCHMARK_DURATION = 60;
 
   public static TestConfig createConfig() {
     TestConfig testConfig = new TestConfig();
