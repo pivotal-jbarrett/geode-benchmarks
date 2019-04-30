@@ -17,6 +17,8 @@
 
 package org.apache.geode.benchmark.tasks;
 
+import static java.util.concurrent.TimeUnit.MINUTES;
+
 import java.io.File;
 import java.net.InetAddress;
 
@@ -49,6 +51,7 @@ public class StartClient implements Task {
         .setPdxSerializer(new ReflectionBasedAutoSerializer("benchmark.geode.data.*"))
         .addPoolLocator(locator.getHostAddress(), locatorPort)
         .setPoolIdleTimeout(-1)
+        .setPoolLoadConditioningInterval((int) MINUTES.toMillis(1))
         .set(ConfigurationProperties.STATISTIC_ARCHIVE_FILE, statsFile)
         .create();
 
