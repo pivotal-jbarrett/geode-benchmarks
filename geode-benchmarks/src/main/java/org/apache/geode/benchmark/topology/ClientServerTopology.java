@@ -43,7 +43,7 @@ public class ClientServerTopology {
   public static final int LOCATOR_PORT = 10334;
 
   static final int NUM_LOCATORS = 1;
-  static final int NUM_SERVERS = 2;
+  static final int NUM_SERVERS = 4;
   static final int NUM_CLIENTS = 1;
 
   public static void configure(TestConfig testConfig) {
