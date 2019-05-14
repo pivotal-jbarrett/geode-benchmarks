@@ -57,7 +57,6 @@ public class PartitionedGetLongBenchmark implements PerformanceTest {
     ClientServerTopology.configure(config);
     config.before(new CreatePartitionedRegion(), SERVER);
     config.before(new CreateClientProxyRegion(), CLIENT);
-    config.before((c) -> Thread.sleep(30000), SERVER);
     config.before(new PrePopulateRegionLong(keyRange), SERVER);
     config.workload(new GetTask(keyRange), CLIENT);
     return config;
