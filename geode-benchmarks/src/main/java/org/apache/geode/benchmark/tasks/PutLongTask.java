@@ -21,7 +21,6 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import benchmark.geode.data.Portfolio;
 import org.yardstickframework.BenchmarkConfiguration;
 import org.yardstickframework.BenchmarkDriverAdapter;
 
@@ -33,7 +32,7 @@ public class PutLongTask extends BenchmarkDriverAdapter implements Serializable 
 
   private Region<Object, Object> region;
 
-  final private long keyRange;
+  private final long keyRange;
 
   public PutLongTask(final long keyRange) {
     this.keyRange = keyRange;

@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.yardstickframework.BenchmarkConfiguration;
-import org.yardstickframework.BenchmarkDriverAdapter;
 
 import org.apache.geode.cache.Region;
 import org.apache.geode.cache.client.ClientCache;
@@ -32,7 +31,7 @@ import org.apache.geode.cache.client.ClientCacheFactory;
  * Task workload to perform get operations on keys within 0
  * and the keyRange (exclusive)
  */
-public class GetTask extends BenchmarkDriverAdapter implements Serializable {
+public class GetTask extends AbstractBenchmarkTask implements Serializable {
 
   private Region<Object, Object> region;
   private long keyRange;
