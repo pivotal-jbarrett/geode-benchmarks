@@ -34,9 +34,11 @@ import static org.apache.geode.distributed.ConfigurationProperties.SSL_TRUSTSTOR
 import static org.apache.geode.distributed.ConfigurationProperties.SSL_TRUSTSTORE_PASSWORD;
 import static org.apache.geode.distributed.ConfigurationProperties.STATISTIC_SAMPLING_ENABLED;
 import static org.apache.geode.distributed.ConfigurationProperties.USE_CLUSTER_CONFIGURATION;
-import static org.apache.geode.security.SecurableCommunicationChannels.CLUSTER;
+import static org.apache.geode.security.SecurableCommunicationChannels.ALL;
 
 import java.util.Properties;
+
+import org.apache.geode.distributed.ConfigurationProperties;
 
 public class GeodeProperties {
 
@@ -79,7 +81,7 @@ public class GeodeProperties {
 
 
   public static Properties withSsl(Properties properties) {
-    properties.setProperty(SSL_ENABLED_COMPONENTS, CLUSTER);
+    properties.setProperty(SSL_ENABLED_COMPONENTS, ALL);
 
     // TODO make configurable, relative, something?
     properties.setProperty(SSL_KEYSTORE, "/home/geode/selfsigned.jks");
