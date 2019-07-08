@@ -27,7 +27,7 @@ public class JVMParameters {
 //      "-XX:GCLogFileSize=1M",
       "-XX:+UnlockDiagnosticVMOptions",
       "-XX:ParGCCardsPerStrideChunk=32768",
-      "-XX:+UseNUMA",
+//      "-XX:+UseNUMA",
       "-XX:+UseConcMarkSweepGC",
       "-XX:+UseCMSInitiatingOccupancyOnly",
       "-XX:+CMSClassUnloadingEnabled",
