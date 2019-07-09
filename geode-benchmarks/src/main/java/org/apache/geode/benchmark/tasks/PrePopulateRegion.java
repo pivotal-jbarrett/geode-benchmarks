@@ -41,7 +41,7 @@ import org.apache.geode.perftest.TestContext;
 import org.apache.geode.perftest.jvms.RemoteJVMFactory;
 
 public class PrePopulateRegion implements Task {
-  long keyRangeToPrepopulate = 100000;
+  long keyRangeToPrepopulate = 10000;
   private int batchSize = 1000;
   private static final Logger logger = LoggerFactory.getLogger(RemoteJVMFactory.class);
 
