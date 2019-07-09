@@ -20,8 +20,6 @@ package org.apache.geode.benchmark.tasks;
 import java.io.File;
 import java.net.InetAddress;
 
-import sun.awt.geom.AreaOp;
-
 import org.apache.geode.benchmark.parameters.GeodeProperties;
 import org.apache.geode.cache.Cache;
 import org.apache.geode.cache.CacheFactory;
