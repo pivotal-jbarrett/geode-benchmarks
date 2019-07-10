@@ -25,12 +25,12 @@ public class GeodeBenchmark {
   /**
    * Warm up time for the benchmark running on the default runner
    */
-  private static final long WARM_UP_TIME = MINUTES.toSeconds(1);
+  private static final long WARM_UP_TIME = SECONDS.toSeconds(30);
 
   /**
    * Total duration for which the benchmark will run on the default runner
    */
-  private static final long BENCHMARK_DURATION = MINUTES.toSeconds(5);
+  private static final long BENCHMARK_DURATION = MINUTES.toSeconds(1);
 
   /**
    * Number of threads to run benchmark.
