@@ -30,14 +30,14 @@ import org.apache.geode.cache.Region;
 import org.apache.geode.cache.client.ClientCache;
 import org.apache.geode.cache.client.ClientCacheFactory;
 
-public class PutAllTask extends BenchmarkDriverAdapter implements Serializable {
+public class PutAllLongTask extends BenchmarkDriverAdapter implements Serializable {
 
   private final long keyRange;
   private final int batchSize;
 
   private Region<Object, Object> region;
 
-  public PutAllTask(long keyRange, int batchSize) {
+  public PutAllLongTask(long keyRange, int batchSize) {
     this.keyRange = keyRange;
     this.batchSize = batchSize;
   }
@@ -54,8 +54,8 @@ public class PutAllTask extends BenchmarkDriverAdapter implements Serializable {
     final ThreadLocalRandom random = ThreadLocalRandom.current();
     final HashMap<Object, Object> batch = new HashMap<>(batchSize);
     for (int i = 0; i < batchSize; i++) {
-      final long key = random.nextLong(0, this.keyRange);
-      batch.put(key, new Portfolio(key));
+      final Long key = random.nextLong(0, this.keyRange);
+      batch.put(key, key);
     }
     region.putAll(batch);
     return true;

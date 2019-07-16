@@ -18,11 +18,11 @@
 package org.apache.geode.benchmark.tasks;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-import benchmark.geode.data.Portfolio;
 import org.yardstickframework.BenchmarkConfiguration;
 import org.yardstickframework.BenchmarkDriverAdapter;
 
@@ -30,14 +30,14 @@ import org.apache.geode.cache.Region;
 import org.apache.geode.cache.client.ClientCache;
 import org.apache.geode.cache.client.ClientCacheFactory;
 
-public class PutAllTask extends BenchmarkDriverAdapter implements Serializable {
+public class GetAllLongTask extends BenchmarkDriverAdapter implements Serializable {
 
   private final long keyRange;
   private final int batchSize;
 
   private Region<Object, Object> region;
 
-  public PutAllTask(long keyRange, int batchSize) {
+  public GetAllLongTask(long keyRange, int batchSize) {
     this.keyRange = keyRange;
     this.batchSize = batchSize;
   }
@@ -52,12 +52,12 @@ public class PutAllTask extends BenchmarkDriverAdapter implements Serializable {
   @Override
   public boolean test(Map<Object, Object> ctx) {
     final ThreadLocalRandom random = ThreadLocalRandom.current();
-    final HashMap<Object, Object> batch = new HashMap<>(batchSize);
+    final ArrayList<Long> batch = new ArrayList<>(batchSize);
     for (int i = 0; i < batchSize; i++) {
-      final long key = random.nextLong(0, this.keyRange);
-      batch.put(key, new Portfolio(key));
+      final Long key = random.nextLong(0, this.keyRange);
+      batch.add(key);
     }
-    region.putAll(batch);
+    region.getAll(batch);
     return true;
   }
 }
