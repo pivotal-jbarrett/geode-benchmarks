@@ -58,7 +58,7 @@ public class OQLQuery extends BenchmarkDriverAdapter implements Serializable {
   @Override
   public boolean test(Map<Object, Object> ctx) throws Exception {
     long minId =
-        ThreadLocalRandom.current().nextLong(keyRange.getMin(), keyRange.getMax() - queryRange);
+        ThreadLocalRandom.current().nextLong(keyRange.getMin(), keyRange.getMax() - queryRange) + 1000000;
     long maxId = minId + queryRange;
 
     SelectResults results = executeQuery(minId, maxId);
