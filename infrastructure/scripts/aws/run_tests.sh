@@ -160,6 +160,7 @@ if [[ -z "${VERSION}" ]]; then
   fi
 
   if [ "${REPO:0:6}" = "rsync:" ]; then
+    remoteShell rm -rf geode
     pushd "${REPO:6}"
     FILES=$(mktemp)
     git ls-files > "${FILES}"
