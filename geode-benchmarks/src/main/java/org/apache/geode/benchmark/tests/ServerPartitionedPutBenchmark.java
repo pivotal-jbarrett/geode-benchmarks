@@ -50,10 +50,10 @@ public class ServerPartitionedPutBenchmark implements PerformanceTest {
   @Override
   public TestConfig configure() {
     TestConfig config = GeodeBenchmark.createConfig();
+    config.threads(Runtime.getRuntime().availableProcessors() * 2);
     ClientServerTopology.configure(config);
     config.before(new CreatePartitionedRegion(), SERVER);
     config.workload(new ServerPutTask(keyRange), SERVER);
     return config;
-
   }
 }
