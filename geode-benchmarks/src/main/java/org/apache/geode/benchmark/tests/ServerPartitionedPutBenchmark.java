@@ -17,14 +17,15 @@
 
 package org.apache.geode.benchmark.tests;
 
-import static org.apache.geode.benchmark.topology.ClientServerTopology.Roles.SERVER;
+import static org.apache.geode.benchmark.topology.PrimarySecondaryTopology.Roles.PRIMARY;
+import static org.apache.geode.benchmark.topology.PrimarySecondaryTopology.Roles.SECONDARY;
 
 import org.junit.jupiter.api.Test;
 
 import org.apache.geode.benchmark.LongRange;
 import org.apache.geode.benchmark.tasks.CreatePartitionedRegion;
 import org.apache.geode.benchmark.tasks.ServerPutTask;
-import org.apache.geode.benchmark.topology.ClientServerTopology;
+import org.apache.geode.benchmark.topology.PrimarySecondaryTopology;
 import org.apache.geode.perftest.PerformanceTest;
 import org.apache.geode.perftest.TestConfig;
 import org.apache.geode.perftest.TestRunners;
@@ -51,9 +52,10 @@ public class ServerPartitionedPutBenchmark implements PerformanceTest {
   public TestConfig configure() {
     TestConfig config = GeodeBenchmark.createConfig();
     config.threads(1);
-    ClientServerTopology.configure(config);
-    config.before(new CreatePartitionedRegion(), SERVER);
-    config.workload(new ServerPutTask(keyRange), SERVER);
+    PrimarySecondaryTopology.configure(config);
+    config.before(new CreatePartitionedRegion(), PRIMARY);
+    config.before(new CreatePartitionedRegion(), SECONDARY);
+    config.workload(new ServerPutTask(keyRange), PRIMARY);
     return config;
   }
 }

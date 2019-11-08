@@ -18,9 +18,9 @@
 package org.apache.geode.benchmark.tasks;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Map;
 
-import benchmark.geode.data.Portfolio;
 import org.yardstickframework.BenchmarkConfiguration;
 import org.yardstickframework.BenchmarkDriverAdapter;
 
@@ -35,8 +35,13 @@ public class ServerPutTask extends BenchmarkDriverAdapter implements Serializabl
 
   private LongRange keyRange;
 
+  private final byte[] value;
+
   public ServerPutTask(LongRange keyRange) {
     this.keyRange = keyRange;
+
+    value = new byte[1024];
+    Arrays.fill(value, (byte) 1);
   }
 
   @Override
@@ -50,7 +55,8 @@ public class ServerPutTask extends BenchmarkDriverAdapter implements Serializabl
   @Override
   public boolean test(Map<Object, Object> ctx) {
     long key = keyRange.random();
-    region.put(key, new Portfolio(key));
+    region.put(key, value);
     return true;
   }
+
 }
