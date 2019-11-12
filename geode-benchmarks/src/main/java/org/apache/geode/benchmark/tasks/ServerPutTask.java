@@ -40,7 +40,7 @@ public class ServerPutTask extends BenchmarkDriverAdapter implements Serializabl
   public ServerPutTask(LongRange keyRange) {
     this.keyRange = keyRange;
 
-    value = new byte[1024];
+    value = new byte[1024 * 70];
     Arrays.fill(value, (byte) 1);
   }
 
