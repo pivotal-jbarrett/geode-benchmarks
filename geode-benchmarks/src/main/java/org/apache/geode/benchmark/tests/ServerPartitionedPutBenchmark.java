@@ -35,7 +35,7 @@ import org.apache.geode.perftest.TestRunners;
  */
 public class ServerPartitionedPutBenchmark implements PerformanceTest {
 
-  private LongRange keyRange = new LongRange(0, 1000000);
+  private LongRange keyRange = new LongRange(0, 100000);
 
   public ServerPartitionedPutBenchmark() {}
 
