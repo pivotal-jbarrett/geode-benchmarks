@@ -25,6 +25,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.geode.cache.client.ClientCache;
 import org.apache.geode.cache.client.ClientCacheFactory;
@@ -71,6 +72,7 @@ public class StartClient implements Task {
       IllegalAccessException, ClassNotFoundException {
     return new ClientCacheFactory(properties)
         .setPdxSerializer(new ReflectionBasedAutoSerializer("benchmark.geode.data.*"))
+        .setPoolIdleTimeout(TimeUnit.SECONDS.toMillis(60))
         .setPoolThreadLocalConnections(true)
         .set(ConfigurationProperties.STATISTIC_ARCHIVE_FILE, statsFile)
         .addPoolLocator(locator.getHostAddress(), locatorPort);
