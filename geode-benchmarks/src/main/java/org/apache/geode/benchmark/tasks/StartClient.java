@@ -72,6 +72,7 @@ public class StartClient implements Task {
     return new ClientCacheFactory(properties)
         .setPdxSerializer(new ReflectionBasedAutoSerializer("benchmark.geode.data.*"))
         .setPoolIdleTimeout(-1)
+        .setPoolThreadLocalConnections(true)
         .set(ConfigurationProperties.STATISTIC_ARCHIVE_FILE, statsFile)
         .addPoolLocator(locator.getHostAddress(), locatorPort);
   }
