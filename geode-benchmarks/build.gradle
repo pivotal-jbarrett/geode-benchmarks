@@ -23,7 +23,7 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 def outputDir = project.hasProperty('outputDir') ? project.findProperty('outputDir') : new File(project.buildDir, "benchmarks_" + getDate()).getAbsolutePath()
-def geodeVersion = project.hasProperty('geodeVersion') ? project.findProperty('geodeVersion') : '1.+'
+def geodeVersion = project.hasProperty('geodeVersion') ? project.findProperty('geodeVersion') : '1.7.0'
 
 def getDate() {
   new Date().format('yyyyMMddHHmmss')
@@ -47,8 +47,9 @@ dependencies {
   implementation(project(':harness'))
 
   implementation(group: 'org.apache.geode', name: 'geode-core', version: geodeVersion)
-  runtime(group: 'org.apache.geode', name: 'geode-log4j', version: geodeVersion)
-
+//  if (geodeVersion > '1.12.0') {
+//    runtime(group: 'org.apache.geode', name: 'geode-log4j', version: geodeVersion)
+//  }
   // Required for missing dependency on geode-core.
   runtime(group: 'org.eclipse.jetty', name: 'jetty-webapp', version: '9.4.12.v20180830')
 
