@@ -53,7 +53,10 @@ public class GetTask extends BenchmarkDriverAdapter implements Serializable {
   @Override
   public boolean test(Map<Object, Object> ctx) throws Exception {
     final long key = keyRange.random();
-    region.get(key);
+    try {
+      region.get(key);
+    } catch (Exception ignore) {
+    }
     return true;
   }
 }
