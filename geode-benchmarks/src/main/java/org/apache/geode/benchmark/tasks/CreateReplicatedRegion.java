@@ -14,7 +14,11 @@
  */
 package org.apache.geode.benchmark.tasks;
 
+import static org.apache.geode.cache.DataPolicy.EMPTY;
+
 import org.apache.geode.cache.Cache;
+import org.apache.geode.cache.DataPolicy;
+import org.apache.geode.cache.RegionFactory;
 import org.apache.geode.cache.RegionShortcut;
 import org.apache.geode.perftest.Task;
 import org.apache.geode.perftest.TestContext;
@@ -26,6 +30,10 @@ public class CreateReplicatedRegion implements Task {
   @Override
   public void run(TestContext context) throws Exception {
     Cache cache = (Cache) context.getAttribute("SERVER_CACHE");
-    cache.createRegionFactory(RegionShortcut.REPLICATE).create("region");
+    RegionFactory<?, ?> regionFactory = cache.createRegionFactory(RegionShortcut.REPLICATE);
+    if (1 == context.getJvmID()) {
+      regionFactory.setDataPolicy(EMPTY);
+    }
+    regionFactory.create("region");
   }
 }
