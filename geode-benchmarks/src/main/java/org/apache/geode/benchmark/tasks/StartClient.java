@@ -29,6 +29,7 @@ import java.util.Properties;
 import org.apache.geode.cache.client.ClientCache;
 import org.apache.geode.cache.client.ClientCacheFactory;
 import org.apache.geode.distributed.ConfigurationProperties;
+import org.apache.geode.internal.cache.PoolFactoryImpl;
 import org.apache.geode.pdx.ReflectionBasedAutoSerializer;
 import org.apache.geode.perftest.Task;
 import org.apache.geode.perftest.TestContext;
@@ -72,6 +73,7 @@ public class StartClient implements Task {
     return new ClientCacheFactory(properties)
         .setPdxSerializer(new ReflectionBasedAutoSerializer("benchmark.geode.data.*"))
         .setPoolIdleTimeout(-1)
+        .setPoolThreadLocalConnections(true)
         .set(ConfigurationProperties.STATISTIC_ARCHIVE_FILE, statsFile)
         .addPoolLocator(locator.getHostAddress(), locatorPort);
   }
