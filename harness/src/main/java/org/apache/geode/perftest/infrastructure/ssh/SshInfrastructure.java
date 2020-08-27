@@ -155,10 +155,10 @@ public class SshInfrastructure implements Infrastructure {
     List<CompletableFuture<Void>> futures = new ArrayList<>();
     for (Node node : this.getNodes()) {
       System.out.println("XXXXX: node= " + node.getAddress() + ", client=" + clientAddress );
-//      if (node.getAddress().equals(clientAddress)) {
-//        System.out.println("XXXXX: skipped node= " + node.getAddress());
-//        continue;
-//      }
+      if (node.getAddress().equals(clientAddress)) {
+        System.out.println("XXXXX: skipped node= " + node.getAddress());
+        continue;
+      }
       futures.add(CompletableFuture.runAsync(() -> {
         InetAddress address = node.getAddress();
         String destDir = destDirFunction.apply(node);
