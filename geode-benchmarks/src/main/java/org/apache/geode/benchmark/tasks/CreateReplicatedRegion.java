@@ -31,7 +31,7 @@ public class CreateReplicatedRegion implements Task {
   public void run(TestContext context) throws Exception {
     Cache cache = (Cache) context.getAttribute("SERVER_CACHE");
     RegionFactory<?, ?> regionFactory = cache.createRegionFactory(RegionShortcut.REPLICATE);
-    if (1 == context.getJvmID()) {
+    if (0 == context.getJvmID() % 2) {
       regionFactory.setDataPolicy(EMPTY);
     }
     regionFactory.create("region");
