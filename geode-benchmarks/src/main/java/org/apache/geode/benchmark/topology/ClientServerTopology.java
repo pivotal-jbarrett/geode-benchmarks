@@ -34,7 +34,7 @@ import org.apache.geode.perftest.TestConfig;
 
 public class ClientServerTopology {
   private static final int NUM_LOCATORS = 1;
-  private static final int NUM_SERVERS = 2;
+  private static final int NUM_SERVERS = 12;
   private static final int NUM_CLIENTS = 1;
   private static final String WITH_SSL_ARGUMENT = "-DwithSsl=true";
   private static final String WITH_SECURITY_MANAGER_ARGUMENT = "-DwithSecurityManager=true";
