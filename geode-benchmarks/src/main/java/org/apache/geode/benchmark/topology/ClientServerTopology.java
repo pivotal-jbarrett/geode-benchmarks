@@ -17,6 +17,7 @@ package org.apache.geode.benchmark.topology;
 import static org.apache.geode.benchmark.Config.before;
 import static org.apache.geode.benchmark.Config.role;
 import static org.apache.geode.benchmark.parameters.Utils.addToTestConfig;
+import static org.apache.geode.benchmark.topology.Ports.EPHEMERAL_PORT;
 import static org.apache.geode.benchmark.topology.Ports.LOCATOR_PORT;
 import static org.apache.geode.benchmark.topology.Roles.CLIENT;
 import static org.apache.geode.benchmark.topology.Roles.LOCATOR;
@@ -54,7 +55,7 @@ public class ClientServerTopology {
     addToTestConfig(config, "withSecurityManager", WITH_SECURITY_MANAGER_ARGUMENT);
 
     before(config, new StartLocator(LOCATOR_PORT), LOCATOR);
-    before(config, new StartServer(LOCATOR_PORT), SERVER);
+    before(config, new StartServer(LOCATOR_PORT, EPHEMERAL_PORT), SERVER);
     before(config, new StartClient(LOCATOR_PORT), CLIENT);
   }
 
