@@ -36,7 +36,7 @@ import org.apache.geode.perftest.TestContext;
  */
 public class StartSocks5Proxy implements Task {
   public static final String START_DOCKER_DAEMON_COMMAND = "sudo service docker start";
-  public static final String START_PROXY_COMMAND = "docker run --rm -d -p %d:1080 --name dante wernight/dante";
+  public static final String START_PROXY_COMMAND = "docker run --rm -d -v %s:/etc/sockd.conf -p %d:1080 --name dante wernight/dante";
 
   private final int proxyPort;
 
@@ -46,9 +46,50 @@ public class StartSocks5Proxy implements Task {
 
   @Override
   public void run(final TestContext context) throws Exception {
+    final Path configFile = Paths.get(getProperty("user.home"), "sockd.conf");
+    rewriteFile(generateConfig(context), configFile);
+
     final ProcessControl processControl = new ProcessControl();
     processControl.runCommand(START_DOCKER_DAEMON_COMMAND);
-    processControl.runCommand(format(START_PROXY_COMMAND, proxyPort));
+    processControl.runCommand(format(START_PROXY_COMMAND, configFile, proxyPort));
+  }
+
+  private void rewriteFile(final String content, final Path path) throws IOException {
+    try (final BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), false))) {
+      writer.write(content);
+    }
+  }
+
+  String generateConfig(final TestContext context) {
+    StringBuilder config = new StringBuilder("logoutput: stderr\n"
+        + "internal: 0.0.0.0 port = 1080\n"
+        + "external: eth0\n"
+        + "external.rotation: route\n"
+        + "socksmethod: none\n"
+        + "clientmethod: none\n"
+        + "user.unprivileged: sockd\n"
+        + "\n"
+        + "# Allow everyone to connect to this server.\n"
+        + "client pass {\n"
+        + "    from: 0.0.0.0/0 to: 0.0.0.0/0\n"
+        + "    log: error connect disconnect\n"
+        + "}\n"
+        + "\n"
+        + "# Allow all operations for connected clients on this server.\n"
+        + "socks pass {\n"
+        + "    from: 0.0.0.0/0 to: 0.0.0.0/0\n"
+        + "    command: bind connect udpassociate\n"
+        + "    log: error connect disconnect #iooperation\n"
+        + "}\n"
+        + "\n"
+        + "# Allow all inbound packets.\n"
+        + "socks pass {\n"
+        + "    from: 0.0.0.0/0 to: 0.0.0.0/0\n"
+        + "    command: bindreply udpreply\n"
+        + "    log: error connect disconnect #iooperation\n"
+        + "}\n");
+
+    return config.toString();
   }
 
 }
