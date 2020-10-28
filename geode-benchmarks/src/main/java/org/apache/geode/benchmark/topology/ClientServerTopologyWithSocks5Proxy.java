@@ -18,10 +18,8 @@ import static org.apache.geode.benchmark.Config.after;
 import static org.apache.geode.benchmark.Config.before;
 import static org.apache.geode.benchmark.Config.role;
 import static org.apache.geode.benchmark.parameters.Utils.addToTestConfig;
-import static org.apache.geode.benchmark.parameters.Utils.configureGeodeProductJvms;
+import static org.apache.geode.benchmark.topology.Ports.EPHEMERAL_PORT;
 import static org.apache.geode.benchmark.topology.Ports.LOCATOR_PORT;
-import static org.apache.geode.benchmark.topology.Ports.SERVER_PORT;
-import static org.apache.geode.benchmark.topology.Ports.SNI_PROXY_PORT;
 import static org.apache.geode.benchmark.topology.Ports.SOCKS_PROXY_PORT;
 import static org.apache.geode.benchmark.topology.Roles.CLIENT;
 import static org.apache.geode.benchmark.topology.Roles.LOCATOR;
@@ -38,7 +36,6 @@ import org.apache.geode.benchmark.tasks.StartLocator;
 import org.apache.geode.benchmark.tasks.StartServer;
 import org.apache.geode.benchmark.tasks.StartSocks5Proxy;
 import org.apache.geode.benchmark.tasks.StopClient;
-import org.apache.geode.benchmark.tasks.StopSniProxy;
 import org.apache.geode.benchmark.tasks.StopSocks5Proxy;
 import org.apache.geode.perftest.TestConfig;
 
@@ -62,11 +59,11 @@ public class ClientServerTopologyWithSocks5Proxy {
     GcParameters.configure(config);
     ProfilerParameters.configure(config);
 
-    configureGeodeProductJvms(config, WITH_SSL_ARGUMENT);
+    addToTestConfig(config, "withSsl", WITH_SSL_ARGUMENT);
     addToTestConfig(config, "withSecurityManager", WITH_SECURITY_MANAGER_ARGUMENT);
 
     before(config, new StartLocator(LOCATOR_PORT), LOCATOR);
-    before(config, new StartServer(LOCATOR_PORT, SERVER_PORT), SERVER);
+    before(config, new StartServer(LOCATOR_PORT, EPHEMERAL_PORT), SERVER);
     before(config, new StartSocks5Proxy(SOCKS_PROXY_PORT), PROXY);
     before(config, new StartClientSocks5(LOCATOR_PORT, SOCKS_PROXY_PORT), CLIENT);
 
