@@ -25,7 +25,7 @@ import org.apache.geode.perftest.TestContext;
  */
 public class StopSocks5Proxy implements Task {
 
-  public static final String STOP_PROXY_COMMAND = "docker kill dante";
+  public static final String STOP_PROXY_COMMAND = "docker kill socks5";
 
   @Override
   public void run(TestContext context) throws Exception {
