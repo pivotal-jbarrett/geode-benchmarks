@@ -36,7 +36,7 @@ import org.apache.geode.perftest.TestContext;
  */
 public class StartSocks5Proxy implements Task {
   public static final String START_DOCKER_DAEMON_COMMAND = "sudo service docker start";
-  public static final String START_PROXY_COMMAND = "docker run --rm -d -v %s:/etc/sockd.conf -p %d:1080 --name dante wernight/dante sockd -N 72";
+  public static final String START_PROXY_COMMAND = "docker run --rm -d -v %s:/etc/sockd.conf -p %d:1080 --name dante wernight/dante";
 
   private final int proxyPort;
 
