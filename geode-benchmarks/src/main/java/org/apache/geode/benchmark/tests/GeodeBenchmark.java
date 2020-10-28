@@ -15,10 +15,12 @@
 
 package org.apache.geode.benchmark.tests;
 
+import static java.lang.Boolean.getBoolean;
 import static java.util.concurrent.TimeUnit.MINUTES;
 
 import org.apache.geode.benchmark.topology.ClientServerTopology;
 import org.apache.geode.benchmark.topology.ClientServerTopologyWithSNIProxy;
+import org.apache.geode.benchmark.topology.ClientServerTopologyWithSocks5Proxy;
 import org.apache.geode.perftest.TestConfig;
 
 public class GeodeBenchmark {
@@ -45,11 +47,10 @@ public class GeodeBenchmark {
     config.durationSeconds(BENCHMARK_DURATION);
     config.threads(THREADS);
 
-    final String sniProp = System.getProperty("withSniProxy");
-    final boolean doSni = sniProp != null && !sniProp.equals("false");
-
-    if (doSni) {
+    if (getBoolean("withSniProxy")) {
       ClientServerTopologyWithSNIProxy.configure(config);
+    } else if (getBoolean("withSocks5Proxy")) {
+        ClientServerTopologyWithSocks5Proxy.configure(config);
     } else {
       ClientServerTopology.configure(config);
     }

@@ -34,4 +34,9 @@ public class Ports {
    * The SNI proxy port.
    */
   public static final int SNI_PROXY_PORT = 15443;
+
+  /**
+   * The SOCKS proxy port.
+   */
+  public static final int SOCKS_PROXY_PORT = 1080;
 }
