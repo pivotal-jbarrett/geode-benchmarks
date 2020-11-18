@@ -70,7 +70,7 @@ public class StartClient implements Task {
       IllegalAccessException, ClassNotFoundException {
     return new ClientCacheFactory(properties)
         .setPdxSerializer(new ReflectionBasedAutoSerializer("benchmark.geode.data.*"))
-        .setPoolIdleTimeout(-1)
+        .setPoolIdleTimeout(0)
         .set(ConfigurationProperties.STATISTIC_ARCHIVE_FILE, statsFile)
         .addPoolLocator(locator.getHostName(), locatorPort);
   }
