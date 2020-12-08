@@ -95,6 +95,7 @@ public class StartHAProxy implements Task {
         + "  daemon\n"
         + "  maxconn 64000\n"
         + "  spread-checks 4\n"
+        + "  stats socket /var/run/haproxy.sock mode 600 expose-fd listeners level operator\n"
         + "defaults\n"
         + "  log global\n"
         + "  timeout connect 30000ms\n"
