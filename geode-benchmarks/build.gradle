@@ -149,6 +149,9 @@ task benchmark(type: Test) {
   systemProperty 'withSecurityManager', project.hasProperty('withSecurityManager')
   systemProperty 'benchmark.profiler.argument', project.findProperty('benchmark.profiler.argument')
 
+  if (project.hasProperty('withNettyThreads')) {
+    systemProperty 'withNettyThreads', project.findProperty('withNettyThreads')
+  }
 
   doFirst {
     if(!project.hasProperty('hosts')) {
