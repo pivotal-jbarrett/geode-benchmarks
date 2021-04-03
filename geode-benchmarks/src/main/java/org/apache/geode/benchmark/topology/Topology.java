@@ -37,6 +37,9 @@ public abstract class Topology {
   public static final String WITH_SECURITY_MANAGER_PROPERTY = "withSecurityManager";
   static final String WITH_SECURITY_MANAGER_ARGUMENT = "-DwithSecurityManager=true";
 
+  public static final String WITH_SERVER_COUNT_PROPERTY  = "withServerCount";
+  public static final String WITH_CLIENT_COUNT_PROPERTY  = "withClientCount";
+
   protected static void configureCommon(TestConfig config) {
     JvmParameters.configure(config);
     HeapParameters.configure(config);
