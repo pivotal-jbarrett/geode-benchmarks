@@ -123,7 +123,6 @@ task benchmark(type: Test) {
   }
 
   exclude "**/NoopBenchmark.class"
-  exclude "**/P2pPartitionedPutLongBenchmark.class"
 
   forkEvery 1
   failFast = true
