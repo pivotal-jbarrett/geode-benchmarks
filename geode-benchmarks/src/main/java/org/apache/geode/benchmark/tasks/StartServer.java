@@ -17,7 +17,6 @@
 
 package org.apache.geode.benchmark.tasks;
 
-import static java.lang.String.valueOf;
 import static org.apache.geode.benchmark.parameters.GeodeProperties.serverProperties;
 
 import java.io.File;
@@ -82,8 +81,7 @@ public class StartServer implements Task {
         .set(ConfigurationProperties.LOCATORS, locatorString)
         .set(ConfigurationProperties.NAME,
             "server-" + context.getJvmID() + "-" + InetAddress.getLocalHost())
-        .set(ConfigurationProperties.STATISTIC_ARCHIVE_FILE, statsFile)
-        .set(ConfigurationProperties.SOCKET_LEASE_TIME, valueOf(0));
+        .set(ConfigurationProperties.STATISTIC_ARCHIVE_FILE, statsFile);
   }
 
   /**
