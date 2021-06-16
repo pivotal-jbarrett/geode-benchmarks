@@ -47,14 +47,17 @@ public class RestartServerTask implements Task {
       final Thread thread = new Thread(() -> {
         while (true) {
           try {
+            logger.info("RestartServerTask: waiting before stop.");
+            Thread.sleep(SECONDS.toMillis(10));
             logger.info("RestartServerTask: stopping server.");
             stopServer.run(context);
             logger.info("RestartServerTask: server stopped.");
           } catch (Exception e) {
             logger.warn("RestartServerTask: failed to stop server.", e);
           }
-          logger.info("RestartServerTask: waiting after stop.");
           try {
+            logger.info("RestartServerTask: waiting before start.");
+            Thread.sleep(SECONDS.toMillis(10));
             logger.info("RestartServerTask: starting server.");
             startServer.run(context);
             logger.info("RestartServerTask: server started.");
@@ -62,7 +65,7 @@ public class RestartServerTask implements Task {
             logger.warn("RestartServerTask: failed to start server.", e);
           }
           try {
-            logger.info("RestartServerTask: waiting after start.");
+            logger.info("RestartServerTask: waiting before rebalance.");
             Thread.sleep(SECONDS.toMillis(10));
             final Cache cache = CacheFactory.getAnyInstance();
             logger.info("RestartServerTask: starting rebalance.");
