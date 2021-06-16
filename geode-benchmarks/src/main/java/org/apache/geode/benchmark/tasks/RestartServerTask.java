@@ -17,6 +17,8 @@
 
 package org.apache.geode.benchmark.tasks;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,21 +46,27 @@ public class RestartServerTask implements Task {
       logger.info("RestartServerTask: I am the sacrificial server.");
       final Thread thread = new Thread(() -> {
         while (true) {
-          logger.info("RestartServerTask: starting rebalance.");
           try {
+            logger.info("RestartServerTask: stopping server.");
             stopServer.run(context);
+            logger.info("RestartServerTask: server stopped.");
           } catch (Exception e) {
             logger.warn("RestartServerTask: failed to stop server.", e);
           }
           try {
+            logger.info("RestartServerTask: starting server.");
             startServer.run(context);
+            logger.info("RestartServerTask: server started.");
           } catch (Exception e) {
             logger.warn("RestartServerTask: failed to start server.", e);
           }
-          final Cache cache = CacheFactory.getAnyInstance();
-          final RebalanceOperation rebalanceOperation =
-              cache.getResourceManager().createRebalanceFactory().start();
           try {
+            logger.info("RestartServerTask: waiting.");
+            Thread.sleep(SECONDS.toMillis(10));
+            final Cache cache = CacheFactory.getAnyInstance();
+            logger.info("RestartServerTask: starting rebalance.");
+            final RebalanceOperation rebalanceOperation =
+                cache.getResourceManager().createRebalanceFactory().start();
             final RebalanceResults results = rebalanceOperation.getResults();
             logger.info("RestartServerTask: ended rebalance. {}", results);
           } catch (InterruptedException e) {
