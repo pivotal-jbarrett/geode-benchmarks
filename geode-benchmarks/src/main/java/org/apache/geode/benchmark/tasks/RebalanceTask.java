@@ -17,31 +17,29 @@
 
 package org.apache.geode.benchmark.tasks;
 
-import static java.lang.String.valueOf;
-import static org.apache.geode.benchmark.tasks.StartServer.SERVER_CACHE;
-
 import java.io.Serializable;
 import java.util.Map;
 
-import com.google.common.util.concurrent.RateLimiter;
-import org.yardstickframework.BenchmarkConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yardstickframework.BenchmarkDriverAdapter;
 
-import org.apache.geode.benchmark.LongRange;
 import org.apache.geode.cache.Cache;
 import org.apache.geode.cache.CacheFactory;
-import org.apache.geode.cache.Region;
 import org.apache.geode.cache.control.RebalanceOperation;
-import org.apache.geode.internal.cache.InternalCache;
-
+import org.apache.geode.cache.control.RebalanceResults;
 
 public class RebalanceTask extends BenchmarkDriverAdapter implements Serializable {
+  private static final Logger logger = LoggerFactory.getLogger(RebalanceTask.class);
 
   @Override
   public boolean test(Map<Object, Object> context) throws Exception {
     final Cache cache = CacheFactory.getAnyInstance();
+
+    logger.info("RebalanceTask: starting rebalance.");
     final RebalanceOperation rebalanceOperation = cache.getResourceManager().createRebalanceFactory().start();
-    rebalanceOperation.getResults();
+    final RebalanceResults results = rebalanceOperation.getResults();
+    logger.info("RebalanceTask: ended rebalance. {}", results);
     return true;
   }
 }
