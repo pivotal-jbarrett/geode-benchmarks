@@ -38,7 +38,7 @@ public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter impleme
   transient private RateLimiter rateLimiter;
 
   public PutRandomStringByteArrayTask() {
-    value = new byte[128];
+    value = new byte[1000];
   }
 
   @Override
