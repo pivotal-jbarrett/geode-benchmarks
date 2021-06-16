@@ -50,7 +50,7 @@ public class RestartServerTask implements Task {
         while (true) {
           try {
             logger.info("RestartServerTask: waiting before stop.");
-            Thread.sleep(SECONDS.toMillis(10));
+            Thread.sleep(SECONDS.toMillis(30));
             logger.info("RestartServerTask: stopping server.");
             stopServer.run(context);
             logger.info("RestartServerTask: server stopped.");
