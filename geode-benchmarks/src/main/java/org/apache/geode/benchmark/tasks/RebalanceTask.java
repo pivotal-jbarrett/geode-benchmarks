@@ -41,9 +41,9 @@ public class RebalanceTask implements Task {
     final Thread thread = new Thread(() -> {
       while (true) {
         logger.info("RebalanceTask: starting rebalance.");
-        final RebalanceOperation rebalanceOperation =
-            cache.getResourceManager().createRebalanceFactory().start();
         try {
+          final RebalanceOperation rebalanceOperation =
+              cache.getResourceManager().createRebalanceFactory().start();
           final RebalanceResults results = rebalanceOperation.getResults();
           logger.info("RebalanceTask: ended rebalance. {}", results);
         } catch (InterruptedException e) {

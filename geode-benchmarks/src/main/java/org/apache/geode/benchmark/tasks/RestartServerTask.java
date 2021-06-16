@@ -34,10 +34,12 @@ public class RestartServerTask implements Task {
 
   private final Task startServer;
   private final Task stopServer;
+  private final Task createRegion;
 
-  public RestartServerTask(final Task startServer, final Task stopServer) {
+  public RestartServerTask(final Task startServer, final Task stopServer, final Task createRegion) {
     this.startServer = startServer;
     this.stopServer = stopServer;
+    this.createRegion = createRegion;
   }
 
   @Override
@@ -60,6 +62,7 @@ public class RestartServerTask implements Task {
             Thread.sleep(SECONDS.toMillis(10));
             logger.info("RestartServerTask: starting server.");
             startServer.run(context);
+            createRegion.run(context);
             logger.info("RestartServerTask: server started.");
           } catch (Exception e) {
             logger.warn("RestartServerTask: failed to start server.", e);

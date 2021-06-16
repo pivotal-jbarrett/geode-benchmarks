@@ -41,7 +41,8 @@ import org.apache.geode.perftest.TestRunners;
  */
 public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTest {
 
-  public PartitionedPutWithExpirationBenchmark() {}
+  public PartitionedPutWithExpirationBenchmark() {
+  }
 
   @Test
   public void run() throws Exception {
@@ -55,7 +56,9 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
     before(config, new CreatePartitionedExpirationRegion(), SERVER);
     before(config, new CreateClientProxyRegion(), CLIENT);
     before(config, new RebalanceTask(), SERVER);
-    before(config, new RestartServerTask(new StartServer(LOCATOR_PORT, EPHEMERAL_PORT), new StopServer()), SERVER);
+    before(config,
+        new RestartServerTask(new StartServer(LOCATOR_PORT, EPHEMERAL_PORT), new StopServer(),
+            new CreatePartitionedExpirationRegion()), SERVER);
 
     workload(config, new PutRandomStringByteArrayTask(), CLIENT);
 
