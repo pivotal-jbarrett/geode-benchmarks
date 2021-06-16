@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.apache.geode.benchmark.tasks.CreateClientProxyRegion;
 import org.apache.geode.benchmark.tasks.CreatePartitionedExpirationRegion;
 import org.apache.geode.benchmark.tasks.PutRandomStringByteArrayTask;
+import org.apache.geode.benchmark.tasks.RebalanceTask;
 import org.apache.geode.perftest.TestConfig;
 import org.apache.geode.perftest.TestRunners;
 
@@ -49,6 +50,7 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
     before(config, new CreatePartitionedExpirationRegion(), SERVER);
     before(config, new CreateClientProxyRegion(), CLIENT);
     workload(config, new PutRandomStringByteArrayTask(), CLIENT);
+    workload(config, new RebalanceTask(), SERVER);
 
     return config;
   }
