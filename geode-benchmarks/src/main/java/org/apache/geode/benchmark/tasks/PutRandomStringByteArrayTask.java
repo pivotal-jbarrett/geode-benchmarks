@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.google.common.util.concurrent.RateLimiter;
 import org.yardstickframework.BenchmarkConfiguration;
 import org.yardstickframework.BenchmarkDriverAdapter;
 
@@ -29,13 +30,16 @@ import org.apache.geode.cache.Cache;
 import org.apache.geode.cache.CacheFactory;
 import org.apache.geode.cache.Region;
 
+@SuppressWarnings("UnstableApiUsage")
 public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter implements Serializable {
   private final byte[] value;
+  private final RateLimiter rateLimiter;
 
   private Region<String, byte[]> region;
 
   public PutRandomStringByteArrayTask() {
     value = new byte[1000];
+    rateLimiter = RateLimiter.create(2000.0);
   }
 
   @Override
@@ -48,6 +52,7 @@ public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter impleme
 
   @Override
   public boolean test(Map<Object, Object> ctx) throws Exception {
+    rateLimiter.acquire();
     final String key = getRandomString(64);
     region.put(key, value);
     return true;
