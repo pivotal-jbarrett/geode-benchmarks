@@ -59,25 +59,13 @@ public class RestartServerTask implements Task {
           }
           try {
             logger.info("RestartServerTask: waiting before start.");
-            Thread.sleep(SECONDS.toMillis(10));
+            Thread.sleep(SECONDS.toMillis(1));
             logger.info("RestartServerTask: starting server.");
             startServer.run(context);
             createRegion.run(context);
             logger.info("RestartServerTask: server started.");
           } catch (Exception e) {
             logger.warn("RestartServerTask: failed to start server.", e);
-          }
-          try {
-            logger.info("RestartServerTask: waiting before rebalance.");
-            Thread.sleep(SECONDS.toMillis(10));
-            final Cache cache = CacheFactory.getAnyInstance();
-            logger.info("RestartServerTask: starting rebalance.");
-            final RebalanceOperation rebalanceOperation =
-                cache.getResourceManager().createRebalanceFactory().start();
-            final RebalanceResults results = rebalanceOperation.getResults();
-            logger.info("RestartServerTask: ended rebalance. {}", results);
-          } catch (InterruptedException e) {
-            logger.warn("RestartServerTask: interrupted.");
           }
         }
       });
