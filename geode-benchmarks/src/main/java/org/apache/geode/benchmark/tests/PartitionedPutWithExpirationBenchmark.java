@@ -19,6 +19,8 @@ package org.apache.geode.benchmark.tests;
 
 import static org.apache.geode.benchmark.Config.before;
 import static org.apache.geode.benchmark.Config.workload;
+import static org.apache.geode.benchmark.topology.Ports.EPHEMERAL_PORT;
+import static org.apache.geode.benchmark.topology.Ports.LOCATOR_PORT;
 import static org.apache.geode.benchmark.topology.Roles.CLIENT;
 import static org.apache.geode.benchmark.topology.Roles.SERVER;
 
@@ -28,6 +30,9 @@ import org.apache.geode.benchmark.tasks.CreateClientProxyRegion;
 import org.apache.geode.benchmark.tasks.CreatePartitionedExpirationRegion;
 import org.apache.geode.benchmark.tasks.PutRandomStringByteArrayTask;
 import org.apache.geode.benchmark.tasks.RebalanceTask;
+import org.apache.geode.benchmark.tasks.RestartServerTask;
+import org.apache.geode.benchmark.tasks.StartServer;
+import org.apache.geode.benchmark.tasks.StopServer;
 import org.apache.geode.perftest.TestConfig;
 import org.apache.geode.perftest.TestRunners;
 
@@ -50,6 +55,7 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
     before(config, new CreatePartitionedExpirationRegion(), SERVER);
     before(config, new CreateClientProxyRegion(), CLIENT);
     before(config, new RebalanceTask(), SERVER);
+    before(config, new RestartServerTask(new StartServer(LOCATOR_PORT, EPHEMERAL_PORT), new StopServer()), SERVER);
 
     workload(config, new PutRandomStringByteArrayTask(), CLIENT);
 
