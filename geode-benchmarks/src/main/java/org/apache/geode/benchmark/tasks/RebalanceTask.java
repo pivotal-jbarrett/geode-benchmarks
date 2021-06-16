@@ -28,18 +28,28 @@ import org.apache.geode.cache.Cache;
 import org.apache.geode.cache.CacheFactory;
 import org.apache.geode.cache.control.RebalanceOperation;
 import org.apache.geode.cache.control.RebalanceResults;
+import org.apache.geode.perftest.Task;
+import org.apache.geode.perftest.TestContext;
 
-public class RebalanceTask extends BenchmarkDriverAdapter implements Serializable {
+public class RebalanceTask implements Task {
   private static final Logger logger = LoggerFactory.getLogger(RebalanceTask.class);
 
   @Override
-  public boolean test(Map<Object, Object> context) throws Exception {
+  public void run(TestContext context) throws Exception {
     final Cache cache = CacheFactory.getAnyInstance();
 
-    logger.info("RebalanceTask: starting rebalance.");
-    final RebalanceOperation rebalanceOperation = cache.getResourceManager().createRebalanceFactory().start();
-    final RebalanceResults results = rebalanceOperation.getResults();
-    logger.info("RebalanceTask: ended rebalance. {}", results);
-    return true;
+    final Thread thread = new Thread(() -> {
+      logger.info("RebalanceTask: starting rebalance.");
+      final RebalanceOperation rebalanceOperation =
+          cache.getResourceManager().createRebalanceFactory().start();
+      try {
+        final RebalanceResults results = rebalanceOperation.getResults();
+        logger.info("RebalanceTask: ended rebalance. {}", results);
+      } catch (InterruptedException e) {
+        logger.warn("RebalanceTask: interrupted.");
+      }
+    });
+    thread.setDaemon(true);
+    thread.start();
   }
 }
