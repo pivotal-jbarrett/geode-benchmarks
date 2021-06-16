@@ -38,7 +38,7 @@ public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter impleme
   transient private RateLimiter rateLimiter;
 
   public PutRandomStringByteArrayTask() {
-    value = new byte[1000];
+    value = new byte[128];
   }
 
   @Override
@@ -48,7 +48,7 @@ public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter impleme
     final Cache cache = CacheFactory.getAnyInstance();
     region = cache.getRegion("region");
 
-    rateLimiter = RateLimiter.create(2000.0);
+    rateLimiter = RateLimiter.create(4000.0);
   }
 
   @Override
