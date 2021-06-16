@@ -33,13 +33,12 @@ import org.apache.geode.cache.Region;
 @SuppressWarnings("UnstableApiUsage")
 public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter implements Serializable {
   private final byte[] value;
-  private final RateLimiter rateLimiter;
 
-  private Region<String, byte[]> region;
+  transient private Region<String, byte[]> region;
+  transient private RateLimiter rateLimiter;
 
   public PutRandomStringByteArrayTask() {
     value = new byte[1000];
-    rateLimiter = RateLimiter.create(2000.0);
   }
 
   @Override
@@ -48,6 +47,8 @@ public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter impleme
 
     final Cache cache = CacheFactory.getAnyInstance();
     region = cache.getRegion("region");
+
+    rateLimiter = RateLimiter.create(2000.0);
   }
 
   @Override
