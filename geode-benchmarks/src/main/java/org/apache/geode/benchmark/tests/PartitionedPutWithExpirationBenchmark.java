@@ -27,9 +27,11 @@ import static org.apache.geode.benchmark.topology.Roles.SERVER;
 
 import org.junit.jupiter.api.Test;
 
+import org.apache.geode.benchmark.LongRange;
 import org.apache.geode.benchmark.tasks.CreateClientProxyRegion;
 import org.apache.geode.benchmark.tasks.CreatePartitionedExpirationRegion;
 import org.apache.geode.benchmark.tasks.PutRandomStringByteArrayTask;
+import org.apache.geode.benchmark.tasks.PutStringTask;
 import org.apache.geode.benchmark.tasks.RebalanceTask;
 import org.apache.geode.benchmark.tasks.RestartServerTask;
 import org.apache.geode.benchmark.tasks.StartServer;
@@ -72,7 +74,7 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
 //        new RestartServerTask(new StartServer(LOCATOR_PORT, EPHEMERAL_PORT), new StopServer(),
 //            new CreatePartitionedExpirationRegion()), SERVER);
 
-    workload(config, new PutRandomStringByteArrayTask(), CLIENT);
+    workload(config, new PutStringTask(new LongRange(0, 100000)), CLIENT);
 
     return config;
   }

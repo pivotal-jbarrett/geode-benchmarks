@@ -21,6 +21,7 @@ import static java.lang.String.valueOf;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.yardstickframework.BenchmarkConfiguration;
 import org.yardstickframework.BenchmarkDriverAdapter;
@@ -61,7 +62,11 @@ public class PutStringTask extends BenchmarkDriverAdapter implements Serializabl
   @Override
   public boolean test(Map<Object, Object> ctx) throws Exception {
     final String key = keys[(int) (keyRange.random() - offset)];
-    region.put(key, key);
+    if (ThreadLocalRandom.current().nextBoolean()) {
+      region.put(key, key);
+    } else {
+      region.destroy(key);
+    }
     return true;
   }
 }
