@@ -19,6 +19,7 @@ package org.apache.geode.benchmark.tests;
 
 import static org.apache.geode.benchmark.Config.before;
 import static org.apache.geode.benchmark.Config.workload;
+import static org.apache.geode.benchmark.parameters.Utils.configureGeodeProductJvms;
 import static org.apache.geode.benchmark.topology.Ports.EPHEMERAL_PORT;
 import static org.apache.geode.benchmark.topology.Ports.LOCATOR_PORT;
 import static org.apache.geode.benchmark.topology.Roles.CLIENT;
@@ -52,6 +53,14 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
   @Override
   public TestConfig configure() {
     TestConfig config = ClientServerBenchmark.createConfig();
+
+    // matching some properties at customer site.
+    config.jvmArgs(SERVER.name(), "  -Dp2p.HANDSHAKE_POOL_SIZE=120",
+        "-DBridgeServer.HANDSHAKE_POOL_SIZE=80",
+        "-Dp2p.backlog=1024",
+        "-DDistributionManager.MAX_FE_THREADS=2048",
+        "-XX:NewSize=2048m",
+        "-XX:MaxNewSize=2048m");
 
     before(config, new CreatePartitionedExpirationRegion(), SERVER);
     before(config, new CreateClientProxyRegion(), CLIENT);
