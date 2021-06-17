@@ -18,6 +18,7 @@ package org.apache.geode.benchmark.tasks;
 import static org.apache.geode.benchmark.tasks.StartServer.SERVER_CACHE;
 
 import org.apache.geode.cache.Cache;
+import org.apache.geode.cache.EvictionAttributes;
 import org.apache.geode.cache.ExpirationAction;
 import org.apache.geode.cache.ExpirationAttributes;
 import org.apache.geode.cache.RegionShortcut;
@@ -32,7 +33,9 @@ public class CreatePartitionedExpirationRegion implements Task {
   @Override
   public void run(TestContext context) throws Exception {
     final Cache cache = (Cache) context.getAttribute(SERVER_CACHE);
-    cache.createRegionFactory(RegionShortcut.PARTITION_REDUNDANT).setEntryTimeToLive(
-        new ExpirationAttributes(10, ExpirationAction.DESTROY)).create("region");
+    cache.createRegionFactory(RegionShortcut.PARTITION_REDUNDANT)
+        .setEntryTimeToLive(new ExpirationAttributes(10, ExpirationAction.DESTROY))
+        .setEvictionAttributes(EvictionAttributes.createLRUEntryAttributes(10000))
+        .create("region");
   }
 }
