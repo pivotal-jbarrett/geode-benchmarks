@@ -55,7 +55,7 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
     TestConfig config = ClientServerBenchmark.createConfig();
 
     // matching some properties at customer site.
-    config.jvmArgs(SERVER.name(), "  -Dp2p.HANDSHAKE_POOL_SIZE=120",
+    config.jvmArgs(SERVER.name(), "-Dp2p.HANDSHAKE_POOL_SIZE=120",
         "-DBridgeServer.HANDSHAKE_POOL_SIZE=80",
         "-Dp2p.backlog=1024",
         "-DDistributionManager.MAX_FE_THREADS=2048",
