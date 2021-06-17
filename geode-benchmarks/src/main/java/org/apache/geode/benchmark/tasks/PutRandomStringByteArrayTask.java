@@ -48,7 +48,7 @@ public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter impleme
     final Cache cache = CacheFactory.getAnyInstance();
     region = cache.getRegion("region");
 
-    rateLimiter = RateLimiter.create(10);
+    rateLimiter = RateLimiter.create(4000);
   }
 
   @Override
