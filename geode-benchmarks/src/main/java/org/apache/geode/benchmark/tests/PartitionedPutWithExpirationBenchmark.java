@@ -61,7 +61,7 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
         "-DDistributionManager.MAX_FE_THREADS=2048",
         "-XX:NewSize=2048m",
         "-XX:MaxNewSize=2048m",
-        "-Dgemfire.tombstone-gc-threshold=10",
+        "-Dgemfire.tombstone-gc-threshold=1000",
         "-Dgemfire.tombstone-timeout=1000"
         );
 
