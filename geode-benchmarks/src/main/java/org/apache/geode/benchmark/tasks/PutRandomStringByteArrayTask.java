@@ -32,12 +32,13 @@ import org.apache.geode.cache.Region;
 
 @SuppressWarnings("UnstableApiUsage")
 public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter implements Serializable {
+
+  private final ThreadLocal<String[]> keys = ThreadLocal.withInitial(() -> new String[10000]);
   private final byte[] value;
 
   transient private Region<String, byte[]> region;
   transient private RateLimiter rateLimiter;
 
-  transient private ThreadLocal<String[]> keys = ThreadLocal.withInitial(() -> new String[10000]);
 
   public PutRandomStringByteArrayTask() {
     value = new byte[1000];
