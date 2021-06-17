@@ -83,7 +83,7 @@ public class StartServer implements Task {
         .set(ConfigurationProperties.NAME,
             "server-" + context.getJvmID() + "-" + InetAddress.getLocalHost())
         .set(ConfigurationProperties.STATISTIC_ARCHIVE_FILE, statsFile)
-        .set(ConfigurationProperties.SOCKET_LEASE_TIME, valueOf(500));
+        /*.set(ConfigurationProperties.SOCKET_LEASE_TIME, valueOf(500))*/;
   }
 
   /**
