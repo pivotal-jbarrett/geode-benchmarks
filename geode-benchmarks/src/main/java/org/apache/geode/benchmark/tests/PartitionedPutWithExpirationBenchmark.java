@@ -60,7 +60,10 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
         "-Dp2p.backlog=1024",
         "-DDistributionManager.MAX_FE_THREADS=2048",
         "-XX:NewSize=2048m",
-        "-XX:MaxNewSize=2048m");
+        "-XX:MaxNewSize=2048m",
+        "-Dgemfire.tombstone-gc-threshold=10",
+        "-Dgemfire.tombstone-timeout=1000"
+        );
 
     before(config, new CreatePartitionedExpirationRegion(), SERVER);
     before(config, new CreateClientProxyRegion(), CLIENT);
