@@ -34,7 +34,7 @@ public class CreatePartitionedExpirationRegion implements Task {
   public void run(TestContext context) throws Exception {
     final Cache cache = (Cache) context.getAttribute(SERVER_CACHE);
     cache.createRegionFactory(RegionShortcut.PARTITION_REDUNDANT)
-        .setEntryTimeToLive(new ExpirationAttributes(10, ExpirationAction.DESTROY))
+        .setEntryTimeToLive(new ExpirationAttributes(5, ExpirationAction.DESTROY))
 //        .setEvictionAttributes(EvictionAttributes.createLRUEntryAttributes(10000))
         .create("region");
   }
