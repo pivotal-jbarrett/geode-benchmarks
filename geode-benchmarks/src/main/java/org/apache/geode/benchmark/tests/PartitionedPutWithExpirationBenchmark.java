@@ -65,7 +65,7 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
         "-XX:NewSize=2048m",
         "-XX:MaxNewSize=2048m",
         "-Dgemfire.tombstone-gc-threshold=1000",
-        "-Dgemfire.tombstone-timeout=1000"
+        "-Dgemfire.tombstone-timeout=4000"
         );
 
     before(config, new CreatePartitionedExpirationRegion(), SERVER);
