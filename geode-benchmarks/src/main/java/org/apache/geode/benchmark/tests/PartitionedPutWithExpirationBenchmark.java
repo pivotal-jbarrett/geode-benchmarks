@@ -74,7 +74,7 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
 //        new RestartServerTask(new StartServer(LOCATOR_PORT, EPHEMERAL_PORT), new StopServer(),
 //            new CreatePartitionedExpirationRegion()), SERVER);
 
-    workload(config, new PutStringTask(new LongRange(0, 100000)), CLIENT);
+    workload(config, new PutStringTask(new LongRange(0, 4000)), CLIENT);
 
     return config;
   }
