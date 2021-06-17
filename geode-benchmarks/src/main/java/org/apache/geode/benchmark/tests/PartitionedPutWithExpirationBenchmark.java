@@ -71,7 +71,7 @@ public class PartitionedPutWithExpirationBenchmark extends AbstractPerformanceTe
     before(config, new CreatePartitionedExpirationRegion(), SERVER);
     before(config, new CreateClientProxyRegion(), CLIENT);
 
-    workload(config, new RateLimittedTask(new PutStringTask(new LongRange(0, 1000000)), 10000), CLIENT);
+    workload(config, new RateLimittedTask(new PutStringTask(new LongRange(0, 1_000_000)), 10_000), CLIENT);
 
     return config;
   }
