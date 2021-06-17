@@ -37,6 +37,8 @@ public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter impleme
   transient private Region<String, byte[]> region;
   transient private RateLimiter rateLimiter;
 
+  transient private ThreadLocal<String[]> keys = ThreadLocal.withInitial(() -> new String[10000]);
+
   public PutRandomStringByteArrayTask() {
     value = new byte[1000];
   }
@@ -54,8 +56,19 @@ public class PutRandomStringByteArrayTask extends BenchmarkDriverAdapter impleme
   @Override
   public boolean test(Map<Object, Object> ctx) throws Exception {
     rateLimiter.acquire();
-    final String key = getRandomString(64);
-    region.put(key, value);
+
+    final int i = ThreadLocalRandom.current().nextInt(10000);
+    final String[] keys = this.keys.get();
+
+    String key = keys[i];
+    if (null == key) {
+      key = keys[i] = getRandomString(60);
+      region.put(key, value);
+    } else {
+      region.destroy(key);
+      keys[i] = null;
+    }
+
     return true;
   }
 
