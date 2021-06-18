@@ -122,9 +122,6 @@ task benchmark(type: Test) {
     showStandardStreams = true
   }
 
-  exclude "**/NoopBenchmark.class"
-  exclude "**/P2pPartitionedPutLongBenchmark.class"
-
   forkEvery 1
   failFast = true
 
